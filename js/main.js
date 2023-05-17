@@ -1,9 +1,10 @@
 'use strict'; 
 
 {
-  const quiz = [
+  // 問題・選択肢・正解を追加するだけでアプリに反映されます。
+  const quizzes = [
     {
-      question: "Q1. 次のうち、ポケモンの名前はどれ？",
+      question: "次のうち、ポケモンの名前はどれ？",
       answers: [
         "イワ",
         "ピィ",
@@ -13,7 +14,7 @@
       correct: "ピィ"
     },
     {
-      question: "Q2. 次のうち、ポケモンのわざはどれ？",
+      question: "次のうち、ポケモンのわざはどれ？",
       answers: [
         "なく",
         "ねる",
@@ -23,7 +24,7 @@
       correct: "あくび"
     },
     {
-      question: "Q3. 次のうち、ポケモンのタイプはどれ？",
+      question: "次のうち、ポケモンのタイプはどれ？",
       answers: [
         "あく",
         "あくま",
@@ -33,7 +34,7 @@
       correct: "あく"
     },
     {
-      question: "Q4. 次のうち、まぼろしのポケモンはどれ？",
+      question: "次のうち、まぼろしのポケモンはどれ？",
       answers: [
         "ウルガモス",
         "ミュウ",
@@ -44,37 +45,40 @@
     }
   ];
 
-
-
-
   const q = document.getElementById('q');
   const answer = document.getElementsByClassName("btn");
   const mask = document.getElementById('mask');
   const modal = document.getElementById('modal');
   const close = document.getElementById('close');
 
-  let k = 0;
-  let c = 0;
+  // 問題数をカウント
+  let quizIndex = 0;
+  // 正解数をカウント
+  let correctIndex = 0;
 
-  q.textContent = quiz[k].question;
+  // 一問目からクイズをセット
+  setQuiz();
   
+  // 正誤判定をして正解数をカウント
   for (let i = 0; i < answer.length; i++){
     answer[i].addEventListener('click', () => {
-      if (answer[i].textContent === quiz[k].correct) {
-        window.alert("正解！");
-        c++;
+      if (answer[i].textContent === quizzes[quizIndex].correct) {
+        window.alert("正解！その調子です。");
+        correctIndex++;
       } else {
-        window.alert("残念！");
+        window.alert("残念！でも次はきっと大丈夫！");
       }
-      k++;
+      quizIndex++;
 
-      if (k < quiz.length){
+      // 全問題に回答していたら結果を表示
+      if (quizIndex < quizzes.length){
         setQuiz();
       } else {
-        resultShow();
-        k = 0;
-        c = 0;
+        showResult();
+        quizIndex = 0;
+        correctIndex = 0;
 
+        // 結果をモーダルウィンドウで表示
         mask.addEventListener('click', () => {
           closeModalwindow();
         });
@@ -83,32 +87,29 @@
         });
 
         setQuiz();
-      }
-      
-      
+      }    
     });
   };
   
+  // 次の問題を表示
   function setQuiz (){
-    q.textContent = quiz[k].question;
+    q.textContent = `Q${quizIndex + 1}. ${quizzes[quizIndex].question}`;
     for (let i = 0; i < answer.length; i++){
-      answer[i].textContent = quiz[k].answers[i];
+      answer[i].textContent = quizzes[quizIndex].answers[i];
     }
   }
   
-  function resultShow (){
+  // モーダルウィンドウで結果発表
+  function showResult (){
     mask.classList.remove('hidden');
     modal.classList.remove('hidden');
-    // document.getElementById('modal').classList.add('appearance');
-    document.getElementById('result').textContent =  `終了ですよ！正解数は ${c}問/${quiz.length}問中でした！`;
+    document.getElementById('result').textContent =  `終了です！正解数は ${correctIndex}問/${quizzes.length}問中でした！`;
   }
 
+  // モーダルウィンドウを閉じる
   function closeModalwindow (){
     mask.classList.add('hidden');
     modal.classList.add('hidden');
   }
-
-
-
 
 }

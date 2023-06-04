@@ -45,6 +45,9 @@
     }
   ];
 
+
+
+
   const q = document.getElementById('q');
   const answer = document.getElementsByClassName("btn");
   const mask = document.getElementById('mask');
@@ -111,5 +114,8 @@
     mask.classList.add('hidden');
     modal.classList.add('hidden');
   }
+
+
+
 
 }

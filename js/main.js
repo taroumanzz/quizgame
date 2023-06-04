@@ -1,7 +1,7 @@
 'use strict'; 
 
 {
-  // 問題・選択肢・正解を追加するだけでアプリに反映されます。
+  // 問題・選択肢・正解を追加するだけでアプリ全体に反映されます。
   const quizzes = [
     {
       question: "次のうち、ポケモンの名前はどれ？",
@@ -44,8 +44,6 @@
       correct: "ミュウ"
     }
   ];
-
-
 
 
   const q = document.getElementById('q');

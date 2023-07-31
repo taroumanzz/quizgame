@@ -107,16 +107,19 @@
         });
 
         setQuiz();
-      }    
+      }
     });
-  };
+  }
   
   // 次の問題を表示
   function setQuiz (){
     q.textContent = `Q${quizIndex + 1}. ${quizzes[quizIndex].question}`;
-    for (let i = 0; i < answer.length; i++){
-      answer[i].textContent = quizzes[quizIndex].answers[i];
-    }
+    // for (let i = 0; i < answer.length; i++){
+    //   answer[i].textContent = quizzes[quizIndex].answers[i];
+    // }
+    quizzes[quizIndex].answers.forEach((ans, index) => {
+      answer[index].textContent = ans;
+    });
   }
   
   // モーダルウィンドウで結果発表
